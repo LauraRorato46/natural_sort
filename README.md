@@ -25,3 +25,10 @@ Plain string sort puts file10 before file2 because it compares character-by-char
 ## Edges
 
 Comparisons are case-sensitive. `Foo` and `foo` sort by their bytes. Call `str.lower` on your inputs first if you want case-insensitive ordering. Leading zeros on numbers are ignored for the numeric value: `file7` and `file007` have identical sort keys, so they will appear in their input order relative to each other (Python's sort is stable).
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
